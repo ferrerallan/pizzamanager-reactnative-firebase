@@ -3,4 +3,4 @@ An application made with react native and firebase for managing pizza orders in 
 based on the goPizza app, developed through a course offered by Rocket Seat
 
 # Requirements
-A firebase account
+A firebase account to create database(models) and storage(files)
