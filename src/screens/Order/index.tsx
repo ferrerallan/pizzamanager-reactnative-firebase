@@ -24,6 +24,7 @@ import { useNavigation,useRoute } from "@react-navigation/native";
 import { ProductNavigationProps } from "@src/@types/navigation"; 
 import { ProductProps } from "@src/components/ProductCard";
 import { useAuth } from "@hooks/auth";
+import { azurefetch, initAzureCosmos } from 'react-native-azure-cosmos/azurecosmos'
 
 type ProductResponse = ProductProps &{
   price_sizes: {
@@ -51,6 +52,18 @@ export function Order() {
   }
 
   async function handleOrder() {
+    initAzureCosmos(
+      {
+        masterKey:"EleWMGjrNe11bPMfY1YQU9vIRi6kMGlW8Pf9CH2yM5NoDC3oOaF46NZwU7qn5Elczbi7Vu9ZdPnmBkZ2q3Phcw==",
+        version: "2017-02-22",
+        dbUri: "https://allan-cosmos-db.documents.azure.com:443/",
+        dbname: "allan-cosmos-db",
+   
+      });
+  
+
+
+
     if (!size) {
       Alert.alert('Erro', 'Selecione um tamanho');
       return;
@@ -85,6 +98,7 @@ export function Order() {
   }
 
   useEffect(()=>{
+    
     if (id) {
       firestore()
         .collection("products")
@@ -98,6 +112,10 @@ export function Order() {
           Alert.alert('Erro','Não foi posssivel carregar o produto');
         });
     }
+
+    
+
+
   },[id]);
 
   return (
